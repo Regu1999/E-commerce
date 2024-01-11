@@ -18,28 +18,28 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/places', async (req, res) => {
-  const fileContent = await fs.readFile('./data/places.json');
+app.get('/products', async (req, res) => {
+  const fileContent = await fs.readFile('./data/product.json');
 
   const placesData = JSON.parse(fileContent);
 
   res.status(200).json({ places: placesData });
 });
 
-app.get('/user-places', async (req, res) => {
-  const fileContent = await fs.readFile('./data/user-places.json');
+app.get('/order-products', async (req, res) => {
+  const fileContent = await fs.readFile('./data/order-products.json');
 
   const places = JSON.parse(fileContent);
 
   res.status(200).json({ places });
 });
 
-app.put('/user-places', async (req, res) => {
+app.put('/order-products', async (req, res) => {
   const places = req.body.places;
 
-  await fs.writeFile('./data/user-places.json', JSON.stringify(places));
+  await fs.writeFile('./data/order-products.json', JSON.stringify(places));
 
-  res.status(200).json({ message: 'User places updated!' });
+  res.status(200).json({ message: 'Order Placed!' });
 });
 
 // 404
