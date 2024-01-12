@@ -8,5 +8,4 @@ Filter going to be a check box not a radio button
 ### Project reffrence 
 ![product ui](./refrence%20ui/product%20ui.png)
 
-**Card ui image**
 ![checkout ui](./refrence%20ui/checkout%20ui.png)
