@@ -1,23 +1,12 @@
-import { useState, useEffect } from "react";
+// import Button from "./Component/UI/Button.jsx"
+import Products from "./Component/Produts.jsx"
 export default function App() {
-  const [product, setProduct] = useState()
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const responce = await fetch("http://localhost:3000/products");
-        const responceData = await responce.json();
-        const product=await responceData.places.data.products;
-        console.log(product);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchData();
-    // setProduct(fetchData())
-  }, [])
   return (
     <div className="shapePractice">
-
+      <Products />
+      {/* <Button btnStyle="text-white p-3 w-100">
+        Summa
+      </Button> */}
     </div>)
 
 }  
