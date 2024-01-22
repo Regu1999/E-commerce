@@ -19,3 +19,6 @@ Filter going to be a check box not a radio button
 
 resopnsive section 
 - in mobile device filter section should be fixed in bottom of the page 
+
+External librarys
+- React icon
