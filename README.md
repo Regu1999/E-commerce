@@ -22,3 +22,11 @@ resopnsive section
 
 External librarys
 - React icon
+
+## Dummy image link 
+https://img.freepik.com/free-photo/full-length-portrait-handsome-serious-man_171337-17388.jpg
+
+
+
+### Notes
+- In Stock or Out of stock should add in future 

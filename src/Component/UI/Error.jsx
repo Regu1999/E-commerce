@@ -3,7 +3,7 @@ import { FiAlertOctagon } from "react-icons/fi";
 
 export default function Error({ errormessage }) {
     console.log(errormessage);
-    return <div className="h-screen flex justify-center items-center flex-col text-center text-rose-100">
+    return <div className="h-screen flex justify-center items-center flex-col text-center text-rose-100 animate-fade-in">
         <div> <FiAlertOctagon className=" text-7xl" /></div>
         <p > <span className="block my-3 font-bold text-2xl">Woops...</span>
             {errormessage}</p>
