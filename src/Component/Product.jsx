@@ -37,7 +37,7 @@ export default function Product({ product }) {
                         <span className="font-bold text-lg">{instalAmount}</span>
                     </div>}
                 </div>
-                <Button btnStyle="w-full mt-2 p-2 hover:bg-rose-100 duration-300">
+                <Button btnStyle="w-full mt-2 p-2 ">
                     Add to cart
                 </Button>
             </div>
