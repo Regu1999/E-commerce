@@ -7,7 +7,7 @@ export default function CheckOut() {
     const Info = ({ label, value, tRowStyle, instalMents }) => {
         return <tr className={`${tRowStyle} text-gray-600`}><td>{label}</td><td className="p-3 text-end">{value} <br /> <span className="font-light">{instalMents}</span></td></tr>
     }
-    return <div className="w-[40rem] p-3 self-start shadow-md">
+    return <div className="lg:w-[40rem] md:w-[30rem] p-3 self-start shadow-md">
         <Heading>The Total amount of </Heading>
         <table className="table-fixed w-full my-6 ">
             <tbody>
@@ -18,11 +18,12 @@ export default function CheckOut() {
             </tbody>
         </table>
         <Button btnStyle="w-full p-2 rounded-sm uppercase font-semibold">Checkout</Button>
-        <div className="mt-5">
+        <div className="mt-7">
             <Heading>Apply Promo Code</Heading>
-            <div className="flex gap-5">
-            <Input />
-            <Button btnStyle="px-2 rounded-md">Apply</Button></div>
+                <form className="flex gap-5 max-w-sm" >
+                    <Input lableName="Code" inputId="promoCode" />
+                    <Button btnStyle="px-2 rounded-md">Apply</Button>
+                </form>
         </div>
-    </div>
+    </div >
 }
