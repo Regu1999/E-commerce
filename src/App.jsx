@@ -5,8 +5,8 @@ export default function App() {
   return (
     <div>
       <NavBar />
-      <Cart />
-      {/* <Shop /> */}
+      {/* <Cart /> */}
+      <Shop />
     </div>
     )
 

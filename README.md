@@ -21,7 +21,8 @@ resopnsive section
 - in mobile device filter section should be fixed in bottom of the page 
 
 External librarys
-- React icon
+- React-icon
+- React-responsive
 
 ## Dummy image link 
 https://img.freepik.com/free-photo/full-length-portrait-handsome-serious-man_171337-17388.jpg

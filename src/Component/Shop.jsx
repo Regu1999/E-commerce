@@ -32,7 +32,7 @@ export default function Shop() {
     }
 
     return (
-        <div className="flex flex-wrap justify-center animate-fade-in">
+        <div className="flex flex-wrap justify-center animate-fade-in mb-10">
             {isLoading && loadingArrays.map((loadingArray,index) => {
                 return <Loader key={index} />
             })}
