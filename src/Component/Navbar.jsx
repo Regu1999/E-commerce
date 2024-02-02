@@ -23,7 +23,7 @@ export default function NavBar({ }) {
     return <div className="h-16 shadow-md flex justify-center sticky top-0 bg-white z-10">
         <FlexContainer styleClass='w-full justify-between px-5 h-full max-w-screen-lg'>
             <FlexContainer styleClass='gap-3'>
-                {!isMobile && <SlMenu />}
+                {!isMobile && <SlMenu className="hover:text-rose-100 transition duration-700" />}
 
                 <FlexContainer styleClass="text-2xl font-serif font-bold text-rose-100"><a href="#">Fashion World</a></FlexContainer>
             </FlexContainer>
