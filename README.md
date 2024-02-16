@@ -15,11 +15,6 @@ Filter going to be a check box not a radio button
 - main color White and black
 - secondry color (#fe4d53)
 
-
-
-resopnsive section 
-- in mobile device filter section should be fixed in bottom of the page 
-
 External librarys
 - React-icon
 - React-responsive
@@ -28,6 +23,3 @@ External librarys
 https://img.freepik.com/free-photo/full-length-portrait-handsome-serious-man_171337-17388.jpg
 
 
-
-### Notes
-- In Stock or Out of stock should add in future 

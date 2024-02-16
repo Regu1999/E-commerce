@@ -1,0 +1,13 @@
+shoud be added in future
+1. In Stock or Out of stock should add in future 
+
+2.resopnsive section 
+  in mobile device filter section should be added in nav bar menu component 
+
+16/02/2024 status
+side bar component created but needs to update functianility and add filter function 
+
+ 
+##shop react icon
+import { CiShop } from "react-icons/ci";
+<CiShop /> 
