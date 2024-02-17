@@ -1,3 +1,4 @@
+import { useState } from "react";
 import CartIcon from "./UI/CartIcon";
 import SideNavBar from "./SideNavBar";
 import FlexContainer from "./UI/FlexContainer";
@@ -8,19 +9,19 @@ import { SlMenu } from "react-icons/sl";
 
 
 export default function NavBar({ }) {
+    const [isView, setIsEnabled] = useState(false);
     const isTablet = useMediaQuery({ query: '(min-width:640px)' });
     const hoverEffect = "rounded-full p-2 hover:bg-gray-200 transition duration-500 hover:shadow-sm"
-
     function handleMenu() {
-        console.log('hi');
+        setIsEnabled(!isView)
     }
     const PageLinks = () => (
-        <FlexContainer styleClass={` ${isTablet && 'gap-6'} ${!isTablet&& 'flex-col'}`}>
+        <FlexContainer styleClass={` ${isTablet && 'gap-6'} ${!isTablet && 'flex-col'}`}>
             <NavLink>Shop</NavLink>
             <NavLink>Contact</NavLink>
         </FlexContainer>
     )
-    
+
     const LikeButton = ({ styleClass }) => {
         return <a href="#" className={`${styleClass} ${hoverEffect} `}><FaRegHeart className="text-xl" /></a>
     }
@@ -36,7 +37,7 @@ export default function NavBar({ }) {
 
                 <FlexContainer styleClass="text-2xl font-serif font-bold text-rose-100"><a href="#">Fashion World</a></FlexContainer>
             </FlexContainer>
-            
+
             {isTablet && <PageLinks />}
 
             <FlexContainer styleClass='gap-6'>
@@ -50,7 +51,7 @@ export default function NavBar({ }) {
             <LikeButton styleClass="w-full h-full flex items-center justify-center border-r border-rose-200 rounded-none" />
             <CartIcon styleClass={`w-full h-full rounded-none ${hoverEffect}`} />
         </div>}
-        {!isTablet&&<SideNavBar>
+        {!isTablet && <SideNavBar isView={isView} handleMenu={handleMenu}>
             <PageLinks />
         </SideNavBar>}
     </nav>
