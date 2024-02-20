@@ -3,7 +3,7 @@
 ## Work in progress 
     1.To start the React server:
         * Open the terminal and navigate to the project directory.
-        * "Run npm" install to install dependencies.
+        * Run "npm install" to install dependencies.
         * Start the server by running "npm run dev".
 
     2.To start the backend server:
