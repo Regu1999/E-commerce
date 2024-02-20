@@ -16,15 +16,5 @@
 ![checkout ui](./refrence%20ui/checkout%20ui.png)
 
 
-- button Color code #1b1a20 (black color)
-- main color White and black
-- secondry color (#fe4d53)
-
-External librarys
-- React-icon
-- React-responsive
-
-## Dummy image link 
-https://img.freepik.com/free-photo/full-length-portrait-handsome-serious-man_171337-17388.jpg
 
 
