@@ -35,7 +35,7 @@ export default function NavBar({ }) {
             <FlexContainer styleClass='gap-3'>
                 {!isTablet && <SlMenu className="hover:text-rose-100 transition duration-700" onClick={handleMenu} />}
 
-                <FlexContainer styleClass="text-2xl font-serif font-bold text-rose-100"><a href="#">Fashion World</a></FlexContainer>
+                {!isView && <FlexContainer styleClass="text-2xl font-serif font-bold text-rose-100"><a href="#">Fashion World</a></FlexContainer>}
             </FlexContainer>
 
             {isTablet && <PageLinks />}
