@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
-import Product from "./Product.jsx"
-import Loader from "./UI/Loader.jsx";
-import Error from "./UI/Error.jsx";
+import Product from "../Component/Product.jsx"
+import Loader from "../Component/UI/Loader.jsx";
+import Error from "../Component/UI/Error.jsx";
 export default function Shop() {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);

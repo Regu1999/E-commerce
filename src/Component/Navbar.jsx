@@ -6,6 +6,7 @@ import { IoSearch } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa6";
 import { useMediaQuery } from "react-responsive";
 import { SlMenu } from "react-icons/sl";
+import { NavLink } from "react-router-dom";
 
 
 export default function NavBar({ }) {
@@ -17,8 +18,8 @@ export default function NavBar({ }) {
     }
     const PageLinks = () => (
         <FlexContainer styleClass={` ${isTablet && 'gap-6'} ${!isTablet && 'flex-col'}`}>
-            <NavLink>Shop</NavLink>
-            <NavLink>Contact</NavLink>
+            <NavegationLink to='/shop'>Shop</NavegationLink>
+            <NavegationLink to='/contact'>Contact</NavegationLink>
         </FlexContainer>
     )
 
@@ -26,8 +27,8 @@ export default function NavBar({ }) {
         return <a href="#" className={`${styleClass} ${hoverEffect} `}><FaRegHeart className="text-xl" /></a>
     }
 
-    const NavLink = ({ children }) => {
-        return <a href="#" className={`${isTablet && hoverEffect} ${!isTablet && 'text-white p-2'}`}>{children}</a>
+    const NavegationLink = ({ children,to }) => {
+        return <NavLink to={to} className={`${isTablet && hoverEffect} ${!isTablet && 'text-white p-2'}`}>{children}</NavLink>
     }
 
     return <nav className="h-16 shadow-md flex justify-center sticky top-0 bg-white z-10">
@@ -35,7 +36,7 @@ export default function NavBar({ }) {
             <FlexContainer styleClass='gap-3'>
                 {!isTablet && <SlMenu className="hover:text-rose-100 transition duration-700" onClick={handleMenu} />}
 
-                {!isView && <FlexContainer styleClass="text-2xl font-serif font-bold text-rose-100"><a href="#">Fashion World</a></FlexContainer>}
+                {!isView && <FlexContainer styleClass="text-2xl font-serif font-bold text-rose-100"><NavLink to="/">Fashion World</NavLink></FlexContainer>}
             </FlexContainer>
 
             {isTablet && <PageLinks />}
