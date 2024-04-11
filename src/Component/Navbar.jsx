@@ -18,8 +18,8 @@ export default function NavBar({ }) {
     }
     const PageLinks = () => (
         <FlexContainer styleClass={` ${isTablet && 'gap-6'} ${!isTablet && 'flex-col'}`}>
-            <NavegationLink to='/shop'>Shop</NavegationLink>
-            <NavegationLink to='/contact'>Contact</NavegationLink>
+            <NavegationLink to='shop'>Shop</NavegationLink>
+            <NavegationLink to='contact'>Contact</NavegationLink>
         </FlexContainer>
     )
 

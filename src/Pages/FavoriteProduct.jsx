@@ -1,6 +1,6 @@
 export default function FavoriteProduct(){
     return <>
     
-    <h1>Liked Product </h1>
+    <h1 className="text-center">Liked Product </h1>
     </>
 }

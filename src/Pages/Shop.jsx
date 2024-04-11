@@ -20,6 +20,7 @@ export default function Shop() {
                 setProducts(product);
                 setIsLoading(false)
             } catch (error) {
+                console.log(error);
                 setErrorMessage("We're unable to find the data that you're looking for")
                 setIsLoading(false)
             }
@@ -33,7 +34,7 @@ export default function Shop() {
 
     return (
         <div className="flex flex-wrap justify-center animate-fade-in mb-10">
-            {isLoading && loadingArrays.map((loadingArray,index) => {
+            {isLoading && loadingArrays.map((loadingArray, index) => {
                 return <Loader key={index} />
             })}
             {products.map((product) => {
@@ -43,6 +44,17 @@ export default function Shop() {
     )
 }
 
-export async function loader(){
-    
+export async function loader() {
+    try {
+        const responce = await fetch("http://localhost:3000/products");
+        const responseData = await responce.json();
+        const product = await responseData.places.data.products
+        if (!responce.ok) {
+            throw new Error("unable to fetch products")
+        }
+        return product
+    } catch (error) {
+        setErrorMessage("We're unable to find the data that you're looking for")
+        setIsLoading(false)
+    }
 }

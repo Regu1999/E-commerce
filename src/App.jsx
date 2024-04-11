@@ -12,28 +12,27 @@ export default function App() {
       path: '/',
       element: <Root />,
       errorElement: <Error />,
-      children: [{
-        index: true,
-        element: <Home />
-      },
-      {
-        path: '/shop',
-        element: <Shop />,
-        children:[
-          {
-            path:'/likedProduct',
-            element: <FavoriteProduct />
-          },
-          {
-            path: 'shoppingCart',
-            element: <Cart />
-          }
-        ]
-      },
-      {
-        path: '/contact',
-        element: <ContactUs />
-      },
+      children: [
+        {
+          index: true,
+          element: <Home />
+        },
+        {
+          path: 'shop',
+          element: <Shop />,
+        },
+        {
+          path: 'likedProduct',
+          element: <FavoriteProduct />
+        },
+        {
+          path: 'shoppingCart',
+          element: <Cart />
+        },
+        {
+          path: 'contact',
+          element: <ContactUs />
+        },
       ]
     }
   ])
