@@ -42,3 +42,7 @@ export default function Shop() {
         </div>
     )
 }
+
+export async function loader(){
+    
+}

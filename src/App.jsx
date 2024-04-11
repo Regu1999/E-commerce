@@ -4,6 +4,7 @@ import Cart from "./Component/cart/Cart.jsx";
 import Root from "./Pages/Root.jsx";
 import Error from "./Component/UI/Error.jsx";
 import ContactUs from "./Pages/ContactUs.jsx";
+import FavoriteProduct from "./Pages/FavoriteProduct.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 export default function App() {
   const router = createBrowserRouter([
@@ -18,24 +19,24 @@ export default function App() {
       {
         path: '/shop',
         element: <Shop />,
+        children:[
+          {
+            path:'/likedProduct',
+            element: <FavoriteProduct />
+          },
+          {
+            path: 'shoppingCart',
+            element: <Cart />
+          }
+        ]
       },
       {
         path: '/contact',
         element: <ContactUs />
       },
-      {
-        path: '/shoppingCart',
-        element: <Cart />
-      }
       ]
     }
   ])
   return <RouterProvider router={router} />
 
 }
-// <div>
-//   <NavBar />
-//   {/* <Cart /> */}
-//   {/* <Home /> */}
-//   <Shop />
-// </div>

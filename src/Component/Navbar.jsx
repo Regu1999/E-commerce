@@ -24,7 +24,7 @@ export default function NavBar({ }) {
     )
 
     const LikeButton = ({ styleClass }) => {
-        return <a href="#" className={`${styleClass} ${hoverEffect} `}><FaRegHeart className="text-xl" /></a>
+        return <NavLink to={'likedProduct'} className={`${styleClass} ${hoverEffect} `}><FaRegHeart className="text-xl" /></NavLink>
     }
 
     const NavegationLink = ({ children,to }) => {
