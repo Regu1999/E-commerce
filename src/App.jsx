@@ -1,4 +1,4 @@
-import Shop from "./Pages/Shop.jsx";
+import Shop, {loader as fetchProductData} from "./Pages/Shop.jsx";
 import Home from "./Pages/Home.jsx";
 import Cart from "./Component/cart/Cart.jsx";
 import Root from "./Pages/Root.jsx";
@@ -20,6 +20,7 @@ export default function App() {
         {
           path: 'shop',
           element: <Shop />,
+          loader:fetchProductData,
         },
         {
           path: 'likedProduct',
