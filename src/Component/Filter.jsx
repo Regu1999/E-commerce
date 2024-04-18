@@ -1,10 +1,10 @@
 export default function Filter() {
-    return <div className="flex flex-col items-center">
+    return <div className="p-3">
         <h5>Filter</h5>
         <div>
-            <h5>Size</h5>
+            <label>Size</label>
             <label htmlFor=""></label>
-            <h5>Price</h5>
+            <label>Price</label>
         </div>
     </div>
 }
