@@ -1,7 +1,6 @@
 import FlexContainer from "./UI/FlexContainer";
 import { IoCloseSharp } from "react-icons/io5";
 import Filter from "./Filter"
-import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 export default function SideNavBar({ isView, handleMenu, children }) {
 

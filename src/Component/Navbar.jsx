@@ -4,7 +4,6 @@ import SideNavBar from "./SideNavBar";
 import FlexContainer from "./UI/FlexContainer";
 import { IoSearch } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa6";
-import { useMediaQuery } from "react-responsive";
 import { SlMenu } from "react-icons/sl";
 import { NavLink } from "react-router-dom";
 import {useMediaQueryDevice} from '../hooks/useMediaQuryDevice'
@@ -12,7 +11,6 @@ import {useMediaQueryDevice} from '../hooks/useMediaQuryDevice'
 
 export default function NavBar({ }) {
     const [isView, setIsEnabled] = useState(false);
-    // const isTablet = useMediaQuery({ query: '(min-width:640px)' });
     const {isTablet}=useMediaQueryDevice()
     const hoverEffect = "rounded-full p-2 hover:bg-gray-200 transition duration-500 hover:shadow-sm"
     function handleMenu() {
