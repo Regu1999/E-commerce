@@ -5,11 +5,13 @@ import { useMediaQueryDevice } from "../hooks/useMediaQuryDevice.js";
 export default function Shop() {
     const { isTablet } = useMediaQueryDevice()
     const loaderData = useLoaderData();
+    const products = loaderData.places.data.products
+
     return (
         <div className="flex animate-fade-in h-full">
             {isTablet && <div className="border-r shadow-md w-[900px]"><Filter /></div>}
             <div className="flex flex-wrap justify-center">
-                {loaderData.map((product) => {
+                {products.map((product) => {
                     return <Product key={product.id} product={product} />
                 })}
             </div>
@@ -22,7 +24,5 @@ export async function loader() {
     if (!responce.ok) {
         throw json({ message: 'Unabel to process data', }, { status: 500, })
     }
-    const responseData = await responce.json();
-    const product = await responseData.places.data.products
-    return product
+    return responce
 }

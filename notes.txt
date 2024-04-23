@@ -22,3 +22,9 @@ External librarys
 
 ## Dummy image link 
 https://img.freepik.com/free-photo/full-length-portrait-handsome-serious-man_171337-17388.jpg
+
+Pending Tasks:
+*Shop component
+  1.shop page product loading ui not working when backend fetching issue.
+  2.Product filter sidebar ui needs to change and add filter functianility
+  3.Add to cart Function is pending 
