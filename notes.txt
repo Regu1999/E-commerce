@@ -1,9 +1,3 @@
-shoud be added in future
-1. In Stock or Out of stock should add in future 
-
-2.resopnsive section 
-  in mobile device filter section should be added in nav bar menu component 
-
 16/02/2024 status
 side bar component created but needs to update functianility and add filter function 
 
@@ -23,8 +17,3 @@ External librarys
 ## Dummy image link 
 https://img.freepik.com/free-photo/full-length-portrait-handsome-serious-man_171337-17388.jpg
 
-Pending Tasks:
-*Shop component
-  1.shop page product loading ui not working when backend fetching issue.
-  2.Product filter sidebar ui needs to change and add filter functianility
-  3.Add to cart Function is pending 
