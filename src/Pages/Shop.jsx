@@ -7,7 +7,7 @@ import { IoCloseSharp } from "react-icons/io5";
 export default function Shop() {
     const { isTablet } = useMediaQueryDevice()
     const loaderData = useLoaderData();
-    const products = loaderData.places.data.products
+    const products = loaderData.places.data.products;
 
     return (
         <div className="flex animate-fade-in h-full">
