@@ -1,0 +1,19 @@
+[
+    {
+        "id":"0001",
+        "email": "admin@gmail.com",
+        "password": "adhfasfksd23kj4h32",
+        "isAdmin": true
+    },
+    {
+        "id":"0002",
+        "email": "subAdmin@gmail.com",
+        "password": "adhfasfksd23kj4h32",
+        "isSubAdmin": true
+    },
+    {
+        "id":"0003",
+        "email": "reguramachandran007@gmail.com",
+        "password": "adhfasfksd23kj4h32"
+    }
+]

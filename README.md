@@ -16,5 +16,7 @@
 ![checkout ui](./refrence%20ui/checkout%20ui.png)
 
 
+## Project documentation 
+https://docs.google.com/document/d/13mccQqiAU788GBIQhGgV7HAFi1qimLXSbGuaweO0w5c/edit?usp=sharing
 
 

@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 
 import bodyParser from 'body-parser';
 import express from 'express';
-
+import authRout from './auth/auth.js'
 const app = express();
 
 app.use(express.static('images'));
@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 
   next();
 });
-
+app.use(authRout);
 app.get('/products', async (req, res) => {
   const fileContent = await fs.readFile('./data/product.json');
 

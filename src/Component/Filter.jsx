@@ -1,7 +1,7 @@
 import { splitPriceRange } from '../utlity/cretePriceRange'
 const CheckBox = ({ inputName }) => {
     return <div className="">
-        <input type="checkbox" name={inputName} id={inputName} className="me-1" />
+        <input type="checkbox" name={inputName} id={inputName} className="me-1" checked/>
         <label htmlFor={inputName} className="select-none">{inputName}</label>
     </div>
 }
@@ -18,7 +18,9 @@ export default function Filter() {
         </section>
         <label>Price $</label>
         <section className="grid grid-cols-2 gap-1">
-            {proceRange.map(price => <CheckBox inputName={price} key={price} />)}
+            <form action="">
+                {proceRange.map(price => <CheckBox inputName={price} key={price} />)}
+            </form>
         </section>
     </div>
 }
