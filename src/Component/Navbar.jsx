@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import CartIcon from "./UI/CartIcon";
 import SideNavBar from "./SideNavBar";
 import FlexContainer from "./UI/FlexContainer";
@@ -6,16 +6,36 @@ import { IoSearch } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa6";
 import { SlMenu } from "react-icons/sl";
 import { NavLink } from "react-router-dom";
-import {useMediaQueryDevice} from '../hooks/useMediaQuryDevice'
+import { useMediaQueryDevice } from '../hooks/useMediaQuryDevice'
+import { handleHeight } from '../store/calculateExptySpace';
 
 
 export default function NavBar({ }) {
     const [isView, setIsEnabled] = useState(false);
-    const {isTablet}=useMediaQueryDevice()
-    const hoverEffect = "rounded-full p-2 hover:bg-gray-200 transition duration-500 hover:shadow-sm"
+    const { isTablet } = useMediaQueryDevice();
+    const { setEmptyHeight } = handleHeight();
+    const navContainer = useRef()
+    const hoverEffect = "rounded-full p-2 hover:bg-gray-200 transition duration-500 hover:shadow-sm "
     function handleMenu() {
         setIsEnabled(!isView)
     }
+    useEffect(() => {
+        const updateHeight = () => {
+            const windowHeight = window.innerHeight;
+            const contentHeight = navContainer.current ? navContainer.current.scrollHeight : 0;
+            const emptySpace = Math.max(windowHeight - contentHeight, 0);
+            setEmptyHeight(emptySpace);
+        };
+
+         updateHeight();
+
+         window.addEventListener('resize', updateHeight);
+ 
+         return () => {
+             window.removeEventListener('resize', updateHeight);
+         };
+
+    }, [])
     const PageLinks = () => (
         <FlexContainer styleClass={` ${isTablet && 'gap-6'} ${!isTablet && 'flex-col'}`}>
             <NavegationLink to='shop'>Shop</NavegationLink>
@@ -27,11 +47,11 @@ export default function NavBar({ }) {
         return <NavLink to={'likedProduct'} className={`${styleClass} ${hoverEffect} `}><FaRegHeart className="text-xl" /></NavLink>
     }
 
-    const NavegationLink = ({ children,to }) => {
-        return <NavLink to={to} className={`${isTablet && hoverEffect} ${!isTablet && 'text-white p-2'}`}>{children}</NavLink>
+    const NavegationLink = ({ children, to, styleClass }) => {
+        return <NavLink to={to} className={`${isTablet && hoverEffect} ${!isTablet && 'text-white p-2 '}${styleClass}`}>{children}</NavLink>
     }
 
-    return <nav className="h-16 shadow-md flex justify-center sticky top-0 bg-white z-10">
+    return <nav ref={navContainer} className="h-16 shadow-md flex justify-center sticky top-0 bg-white z-10">
         <FlexContainer styleClass='w-full justify-between px-5 h-full max-w-screen-lg'>
             <FlexContainer styleClass='gap-3'>
                 {!isTablet && <SlMenu className="hover:text-rose-100 transition duration-700" onClick={handleMenu} />}
@@ -45,6 +65,7 @@ export default function NavBar({ }) {
                 <button className={hoverEffect}><IoSearch className="text-xl" /></button>
                 {isTablet && <LikeButton />}
                 {isTablet && <CartIcon styleClass={hoverEffect} />}
+                <NavegationLink to='auth?mode=login' styleClass=' border px-4 text-black'>Login</NavegationLink>
             </FlexContainer>
         </FlexContainer>
 
