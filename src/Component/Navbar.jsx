@@ -8,7 +8,11 @@ import { SlMenu } from "react-icons/sl";
 import { NavLink } from "react-router-dom";
 import { useMediaQueryDevice } from '../hooks/useMediaQuryDevice'
 import { handleHeight } from '../store/calculateExptySpace';
+import UserProfile from "./UI/UserFrofile";
 
+const LikeButton = ({ styleClass, hoverEffect }) => {
+    return <NavLink to={'likedProduct'} className={`${styleClass} ${hoverEffect} `}><FaRegHeart className="text-xl" /></NavLink>
+}
 
 export default function NavBar({ }) {
     const [isView, setIsEnabled] = useState(false);
@@ -27,15 +31,18 @@ export default function NavBar({ }) {
             setEmptyHeight(emptySpace);
         };
 
-         updateHeight();
+        updateHeight();
 
-         window.addEventListener('resize', updateHeight);
- 
-         return () => {
-             window.removeEventListener('resize', updateHeight);
-         };
+        window.addEventListener('resize', updateHeight);
+
+        return () => {
+            window.removeEventListener('resize', updateHeight);
+        };
 
     }, [])
+    const NavegationLink = ({ children, to, styleClass }) => {
+        return <NavLink to={to} className={`${isTablet && hoverEffect} ${!isTablet && 'text-white p-2 '}${styleClass}`}>{children}</NavLink>
+    }
     const PageLinks = () => (
         <FlexContainer styleClass={` ${isTablet && 'gap-6'} ${!isTablet && 'flex-col'}`}>
             <NavegationLink to='shop'>Shop</NavegationLink>
@@ -43,13 +50,7 @@ export default function NavBar({ }) {
         </FlexContainer>
     )
 
-    const LikeButton = ({ styleClass }) => {
-        return <NavLink to={'likedProduct'} className={`${styleClass} ${hoverEffect} `}><FaRegHeart className="text-xl" /></NavLink>
-    }
 
-    const NavegationLink = ({ children, to, styleClass }) => {
-        return <NavLink to={to} className={`${isTablet && hoverEffect} ${!isTablet && 'text-white p-2 '}${styleClass}`}>{children}</NavLink>
-    }
 
     return <nav ref={navContainer} className="h-16 shadow-md flex justify-center sticky top-0 bg-white z-10">
         <FlexContainer styleClass='w-full justify-between px-5 h-full max-w-screen-lg'>
@@ -65,13 +66,17 @@ export default function NavBar({ }) {
                 <button className={hoverEffect}><IoSearch className="text-xl" /></button>
                 {isTablet && <LikeButton />}
                 {isTablet && <CartIcon styleClass={hoverEffect} />}
-                <NavegationLink to='auth?mode=login' styleClass=' border px-4 text-black'>Login</NavegationLink>
+                {isTablet && <UserProfile NavegationLink={NavegationLink} />}
+                {/* <NavegationLink to='auth?mode=login' styleClass=''>
+                    <CgProfile className="text-2xl text-black" />
+                </NavegationLink> */}
             </FlexContainer>
         </FlexContainer>
 
         {!isTablet && <div className="h-10 flex fixed w-full items-center border-t border-rose-200 bottom-0 z-10 shadow-inner bg-white">
-            <LikeButton styleClass="w-full h-full flex items-center justify-center border-r border-rose-200 rounded-none" />
-            <CartIcon styleClass={`w-full h-full rounded-none ${hoverEffect}`} />
+            <LikeButton styleClass="w-full h-full flex items-center justify-center border-r border-rose-200 rounded-none" hoverEffect={hoverEffect} />
+            <CartIcon styleClass={`w-full h-full rounded-none ${hoverEffect}`} showPrice={false} />
+            <UserProfile NavegationLink={NavegationLink} styleClass={`w-full h-full flex items-center justify-center border-l border-rose-200 rounded-none ${hoverEffect}`} />
         </div>}
         {!isTablet && <SideNavBar isView={isView} handleMenu={handleMenu}>
             <PageLinks />

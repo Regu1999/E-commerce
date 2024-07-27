@@ -3,3 +3,6 @@ Shop page
 3.Add to cart functianility pending;
 4.Mobile resopnsive product card pending;  
 5.shop page product loading ui not working when backend fetching issue.
+
+Bug:
+Navbar logo not visible when user open side bar then change screen size to large 
