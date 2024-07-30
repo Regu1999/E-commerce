@@ -1,8 +1,9 @@
 import express from 'express'
 import { add, get } from './user.js';
-import { createJSONToken, isValidPassword } from '../util/auth.js';
+import { createJSONToken, isValidPassword, checkAuth } from '../util/auth.js';
 import { isValidEmail, isValidText } from '../util/validation.js';
-
+// import { app } from '../app.js';
+// const app = express()
 const router = express.Router();
 
 router.post('/signup', async (req, res, next) => {
@@ -64,5 +65,20 @@ router.post('/login', async (req, res) => {
   const token = createJSONToken(email);
   res.json({ token });
 });
+
+router.use(checkAuth);
+
+router.get('/userAutoLogin', async (req, res) => {
+  const token = await req.token;
+  let email = token.email
+  let user;
+  try {
+    user = await get(email);
+  } catch (error) {
+    return res.status(401).json({ message: 'Token expired' });
+  }
+  delete user.password;
+  res.json({ user })
+})
 
 export default router;

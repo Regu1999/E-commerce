@@ -1,7 +1,7 @@
 import { splitPriceRange } from '../utlity/cretePriceRange'
 const CheckBox = ({ inputName }) => {
     return <div className="">
-        <input type="checkbox" name={inputName} id={inputName} className="me-1" checked/>
+        <input type="checkbox" name={inputName} id={inputName} className="me-1" defaultChecked/>
         <label htmlFor={inputName} className="select-none">{inputName}</label>
     </div>
 }
