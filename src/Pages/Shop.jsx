@@ -3,11 +3,12 @@ import Filter from "../Component/Filter.jsx";
 import { json, useLoaderData } from "react-router-dom";
 import { useMediaQueryDevice } from "../hooks/useMediaQuryDevice.js";
 import { IoCloseSharp } from "react-icons/io5";
+import { getProduct } from "../https.js";
 
 export default function Shop() {
     const { isTablet } = useMediaQueryDevice()
     const loaderData = useLoaderData();
-    const products = loaderData.places.data.products;
+    const products = loaderData;
 
     return (
         <div className="flex animate-fade-in h-full">
@@ -31,7 +32,7 @@ export default function Shop() {
                         <label htmlFor="">50-100</label>
                         <button className="bg-rose-100 h-4 w-4 rounded-full text-rose-200 inline-flex justify-center items-center hover:bg-black"><IoCloseSharp /></button>
                     </span>
-                    <hr className="mt-3"/>
+                    <hr className="mt-3" />
                 </div>
                 {products.map((product) => {
                     return <Product key={product.id} product={product} />
@@ -42,9 +43,10 @@ export default function Shop() {
 }
 
 export async function loader() {
-    const responce = await fetch("http://localhost:3000/products");
-    if (!responce.ok) {
-        throw json({ message: 'Unabel to process data', }, { status: 500, })
-    }
+    const responce = await getProduct();
+
+    // if (!responce.ok) {
+    //     throw json({ message: 'Unabel to process data', }, { status: 500, })
+    // }
     return responce
 }

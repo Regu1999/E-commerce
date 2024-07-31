@@ -16,13 +16,17 @@ const LikeButton = ({ styleClass, hoverEffect }) => {
 
 export default function NavBar({ }) {
     const [isView, setIsEnabled] = useState(false);
+    
     const { isTablet } = useMediaQueryDevice();
     const { setEmptyHeight } = handleHeight();
     const navContainer = useRef()
     const hoverEffect = "rounded-full p-2 hover:bg-gray-200 transition duration-500 hover:shadow-sm "
+   
+    
     function handleMenu() {
         setIsEnabled(!isView)
     }
+
     useEffect(() => {
         const updateHeight = () => {
             const windowHeight = window.innerHeight;
@@ -64,7 +68,7 @@ export default function NavBar({ }) {
 
             <FlexContainer styleClass='gap-6'>
                 <button className={hoverEffect}><IoSearch className="text-xl" /></button>
-                {isTablet && <LikeButton />}
+                {isTablet && <LikeButton hoverEffect={hoverEffect} />}
                 {isTablet && <CartIcon styleClass={hoverEffect} />}
                 {isTablet && <UserProfile NavegationLink={NavegationLink} />}
                 {/* <NavegationLink to='auth?mode=login' styleClass=''>

@@ -5,4 +5,6 @@ Shop page
 5.shop page product loading ui not working when backend fetching issue.
 
 Bug:
-Navbar logo not visible when user open side bar then change screen size to large 
+1.Navbar logo not visible when user open side bar then change screen size to large 
+2.After login or signin when user click profile icon that should be redirect to the /profile 
+  Path but withou relod redirect to the login page 

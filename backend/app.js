@@ -13,11 +13,10 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); // allow all domains
   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
 
   next();
 });
-app.use(authRout);
 app.get('/products', async (req, res) => {
   const fileContent = await fs.readFile('./data/product.json');
 
@@ -42,6 +41,7 @@ app.put('/order-products', async (req, res) => {
   res.status(200).json({ message: 'Order Placed!' });
 });
 
+app.use(authRout);
 // 404
 app.use((req, res, next) => {
   if (req.method === 'OPTIONS') {

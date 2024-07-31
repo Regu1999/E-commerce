@@ -3,31 +3,31 @@ import FormBackground from "../Component/UI/FormBackground";
 import { useForm } from "react-hook-form";
 import { authendication } from '../https.js'
 import { TextFeild, EmailFeild, PasswordFeild } from "../Component/UI/Inputs";
+import Card from "../Component/UI/Card.jsx";
 export default function UserAuth() {
     const [search] = useSearchParams();
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const loginMode = search.get('mode') === 'login';
-    const { register, formState: { errors, isSubmitting }, handleSubmit, watch,setError, reset } = useForm();
+    const { register, formState: { errors, isSubmitting }, handleSubmit, watch, setError, reset } = useForm();
     // console.log(isSubmitting);
     const handleFromSubmit = async (data) => {
         delete data.newPwd;
         try {
             const response = await authendication(search.get('mode'), data);
-            console.log(response);
             navigate('/shop')
         } catch (error) {
-            setError('root',{
-                type:'manual',
-                message:!loginMode?error.response.data.errors?.email||'Unable to Process data':
-                error.response.data.errors?.credentials||error.response.data.message
+            setError('root', {
+                type: 'manual',
+                message: !loginMode ? error.response.data.errors?.email || 'Unable to Process data' :
+                    error.response.data.errors?.credentials || error.response.data.message
             })
             console.log(error);
         }
     }
     let newPwd = watch("newPwd")
     return <FormBackground>
-        <div className="w-96 min-h-96 h-full bg-white shadow-2xl p-5 sm:p-14 rounded-md my-5">
-            {errors.root&&<div className="bg-red-500 p-5 w-full text-white my-4">{errors.root.message}</div>}
+        <Card>
+            {errors.root && <div className="bg-red-500 p-5 w-full text-white my-4">{errors.root.message}</div>}
             <h1 className="text-2xl mb-6 font-bold">{loginMode ? "Login" : "Sign Up"}</h1>
             <form action="post" onSubmit={handleSubmit(handleFromSubmit)}>
                 {!loginMode && <TextFeild inputId="UserName" lableName="User Name" placeholder="Name" register={register} errors={errors} />}
@@ -53,11 +53,11 @@ export default function UserAuth() {
                 </button>
                 <small>
                     {loginMode ? "Don't have an account?" : "Already a user?"}
-                    <Link to={`?mode=${loginMode ? 'signup' : 'login'}`} className="text-blue-500" onClick={()=>reset()}>
+                    <Link to={`?mode=${loginMode ? 'signup' : 'login'}`} className="text-blue-500" onClick={() => reset()}>
                         {loginMode ? ' Sign Up' : ' Login In'}
                     </Link>
                 </small>
             </form>
-        </div>
+        </Card>
     </FormBackground>
 }
