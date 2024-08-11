@@ -23,27 +23,33 @@ export async function authendication(mode, formData) {
 
 export async function autoLogin({ signal }) {
     const { token } = getToken();
-    try {
-        const { data } = await api.get('/userAutoLogin', {
-            'headers': {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            }, signal
-        });
-        return data
-    } catch (err) {
-        console.log(err.response);
-        const error = new Error('authorization faild');
-        error.code = err.response.status;
-        error.message = err.response.statusText
-        throw new Error(error);
+    if (token) {
+        try {
+            const { data } = await api.get('/userAutoLogin', {
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }, signal
+            });
+            return data
+        } catch (err) {
+            console.log(err.response);
+            const error = new Error('authorization faild');
+            error.code = err.response.status;
+            error.message = err.response.statusText
+            throw new Error(error);
+        }
     }
 }
 
-export async function getProduct() {
+export async function getProduct({ queryString }) {
+    let url = '/products';
+    if (queryString) {
+        url += queryString;
+    }
     try {
-        const { data } = await api.get('/products');
-        return data.places.data.products;
+        const { data } = await api.get(url);
+        return data.products;
     } catch (error) {
         console.log(error);
     }

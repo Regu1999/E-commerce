@@ -1,4 +1,6 @@
 import Input from "./Input";
+import './checkBoxStyle.css'
+import { useEffect, useRef } from "react";
 
 export const TextFeild = ({ lableName, inputId, placeholder, register, errors }) => {
     let validation = {
@@ -55,4 +57,19 @@ export const PasswordFeild = ({ register, errors, loginMode, newPwd }) => {
         register={register}
         errors={errors}
     />
+}
+
+export const CheckBox = ({ inputName, type, handleIsUpdated, checkedArray }) => {
+    const checkbox = useRef();
+    useEffect(() => {
+        if (checkbox.current && checkbox.current.checked === false) {
+            checkbox.current.checked = checkedArray.includes(inputName);
+        }
+    }, [checkedArray])
+    return <div className="">
+        <input type="checkbox" ref={checkbox} name={type} id={inputName} value={inputName} className="me-1 hidden" onChange={() => handleIsUpdated(inputName)} />
+        <label htmlFor={inputName} className={`shadow select-none min-w-16 inline-block px-3 text-center shadow-gray-500 text-sm p-1 rounded-full cursor-pointer hover:scale-105 `}>
+            {inputName}
+        </label>
+    </div>
 }
