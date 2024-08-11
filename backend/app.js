@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import bodyParser from 'body-parser';
 import express from 'express';
 import authRout from './auth/auth.js'
+import { productQueryDataFormeter } from './util/queryDataToArrayConverter.js';
 const app = express();
 
 app.use(express.static('images'));
@@ -17,26 +18,41 @@ app.use((req, res, next) => {
 
   next();
 });
+
 app.get('/products', async (req, res) => {
+  const queryData = req.query;
   const fileContent = await fs.readFile('./data/product.json');
+  const productData = JSON.parse(fileContent);
+  let products = productData.data.products;
 
-  const placesData = JSON.parse(fileContent);
+  if (Object.keys(queryData).length !== 0) {
 
-  res.status(200).json({ places: placesData });
+    const { price, size } = productQueryDataFormeter(queryData);
+
+    products = products.filter((productVal) => {
+      const priceRange = price.length === 0 ? true : price.some((range) => productVal.price >= range.minVal && productVal.price <= range.maxVal);
+      const sizeRange = size.length === 0 ? true : productVal.availableSizes.some((avlSize) => size.includes(avlSize))
+      return priceRange & sizeRange
+    });
+
+  }
+  setTimeout(()=>{
+    res.status(200).json({ products: products });
+  },5000)
 });
 
 app.get('/order-products', async (req, res) => {
   const fileContent = await fs.readFile('./data/order-products.json');
 
-  const places = JSON.parse(fileContent);
+  const orderProducts = JSON.parse(fileContent);
 
-  res.status(200).json({ places });
+  res.status(200).json({ orderProducts });
 });
 
 app.put('/order-products', async (req, res) => {
-  const places = req.body.places;
+  const orderProducts = req.body.orderProducts;
 
-  await fs.writeFile('./data/order-products.json', JSON.stringify(places));
+  await fs.writeFile('./data/order-products.json', JSON.stringify(orderProducts));
 
   res.status(200).json({ message: 'Order Placed!' });
 });
