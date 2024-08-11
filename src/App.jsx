@@ -3,10 +3,10 @@ import Root from "./Pages/Root.jsx";
 import Error from "./Component/UI/Error.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy, Suspense } from "react";
-import Loader from "./Component/UI/Loader.jsx";
 import { queryClient } from "./https.js";
 import store from './store/index.js';
 import { Provider } from "react-redux";
+import LoadingCard from "./Component/UI/LoadingCard.jsx";
 const Home = lazy(() => import('./Pages/Home.jsx'));
 const Cart = lazy(() => import('./Component/cart/Cart.jsx'));
 const ContactUs = lazy(() => import('./Pages/ContactUs.jsx'));
@@ -15,14 +15,7 @@ const Shop = lazy(() => import('./Pages/Shop.jsx'));
 const Login = lazy(() => import('./Pages/UserAuth.jsx'));
 const Profile = lazy(() => import('./Pages/Profile.jsx'));
 
-const loadingArrays = new Array(10).fill(0);
-const LoadingCard = () => {
-  return <div className="flex flex-wrap justify-center animate-fade-in mb-10">
-    {loadingArrays.map((loadingArray, index) => {
-      return <Loader key={index} />
-    })}
-  </div>
-}
+
 const SuspenseContainer = ({ children }) => {
   return <Suspense fallback={<LoadingCard />}>{children}</Suspense>
 }
@@ -39,7 +32,7 @@ const router = createBrowserRouter([
       {
         path: 'shop',
         element: <SuspenseContainer> <Shop /> </SuspenseContainer>,
-        loader: () => import('./Pages/Shop.jsx').then(method => method.loader()),
+        loader: (data) => import('./Pages/Shop.jsx').then(module => module.loader(data)),
       },
       {
         path: 'likedProduct',
@@ -70,6 +63,10 @@ const router = createBrowserRouter([
   }
 ])
 export default function App() {
-  return <QueryClientProvider client={queryClient}><Provider store={store}> <RouterProvider router={router} /></Provider></QueryClientProvider>
+  return <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </QueryClientProvider>
 
 }
