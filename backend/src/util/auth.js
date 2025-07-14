@@ -1,7 +1,7 @@
-import pkg from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
 import { NotAuthError } from './errors.js';
-const { sign, verify } =pkg
+const { sign, verify } =jwt
 const KEY = 'supersecret';
 const { compare } =bcryptjs
 export function createJSONToken(email) {

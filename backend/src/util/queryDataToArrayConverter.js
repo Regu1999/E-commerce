@@ -2,7 +2,7 @@ export function productQueryDataFormeter(queryData) {
     // this function consvert product price and size query data to array  
     const price = [];
     const size = []
-    let search;
+    // let search;
     if (queryData.hasOwnProperty("price")) {
         for (const priceData of queryData.price.split(',')) {
             const priceObj = { minVal: null, maxVal: null };
