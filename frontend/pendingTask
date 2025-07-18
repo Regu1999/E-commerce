@@ -1,12 +1,7 @@
 Shop page
-2.Your selection component needs to show only filtered check box value needs to show;
-3.Add to cart functianility pending;
-4.Mobile resopnsive product card pending;  
-5.shop page product not exist ui needs to be create for if that product array was empty
-6.error Handling is bending in axios and reacr query
-7.Your selection section functions are needs to complete
-Bug:
-1.Navbar logo not visible when user open side bar then change screen size to large 
-2.After login or signin when user click profile icon that should be redirect to the /profile 
-  Path but withou relod redirect to the login page 
-3.Error: You defined a loader for route "0-1" but didn't return anything from your `loader` function. Please return a value or `null`. in the shop page when loader fetch fun return error  
+1. Somehow when reduce screen size to mobiile divice redirect to home page this happend some time 
+2. In the mobile screen size open sidebar and increase screen size that time logo didn't show.
+3. React router dom deprecated so need to update to react router.
+4. React slicker library two side arow mark overflow navbar and footer.
+ 
+ 

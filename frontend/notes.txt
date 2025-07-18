@@ -17,3 +17,89 @@ External librarys
 ## Dummy image link 
 https://img.freepik.com/free-photo/full-length-portrait-handsome-serious-man_171337-17388.jpg
 
+🎨 1. Hero Section (Full-width top banner)
++------------------------------------------------------------+
+| [LOGO]   [Women] [Men] [Custom] [Search Bar] [Cart] [Login]|
++------------------------------------------------------------+
+|     [Big Banner Image with models wearing dresses]         |
+|  "Discover Unique Dresses from Independent Designers"      |
+|     [Shop Now]    [Become a Seller]                        |
++------------------------------------------------------------+
+Design Tips:
+
+Use a soft pastel or fashion-style gradient overlay.
+
+CTA buttons: rounded, hover effects.
+---completed
+
+🎨 2. Featured Designers / Top Collections
+
+| Our Top Designers |
+|-------------------|
+| [Card]  [Card]  [Card]  [Card] |
+|  Designer Pic | Name | View Store |
+
+Design Tips:
+
+Cards with a hover zoom effect.
+
+Use border-radius, subtle box-shadow.
+
+🎨 3. Shop by Category (Visual Grid)
+
+| Shop by Style |
+|---------------|
+| [Sarees]  [Kurtis]  [Gowns]  [Custom] |
+| [Partywear] [Western] [Traditional]  |
+Design Tips:
+
+Use high-quality images as background in each card.
+
+Hover: dim image + show CTA like "Explore"
+
+🎨 4. Custom Design Section
+
+| Want Something Unique? |
+|-------------------------|
+| "Tell our sellers your idea. Get it stitched your way!" |
+| [Request Custom Order] button |
+Design Tips:
+
+Include an icon (like ✂️ or 🧵)
+
+Use soft background color (lavender, light pink)
+
+🎨 5. Seller Promotion Banner
+
+| Are You a Designer? Start Selling Today! |
+|------------------------------------------|
+| Join 100+ dressmakers growing their brand |
+| [Start Selling] [Learn More]              |
+Design Tips:
+
+Right-aligned image of a tailor or dressmaker.
+
+Eye-catching button with a clear CTA.
+
+🎨 6. Testimonials (Carousel or Grid)
+Layout:
+
+| What Buyers Say |
+|------------------|
+| "Loved the quality and fit!" - Priya       ⭐⭐⭐⭐⭐ |
+| "The custom dress was perfect for my event" ⭐⭐⭐⭐☆ |
+Design Tips:
+
+Small profile picture or initials in circle
+
+Light background, minimal shadows
+
+🎨 7. Footer
+
+| [About Us] [Contact] [Terms] [Privacy] [Social Links] |
+| Payment Icons: Visa, UPI, GPay                         |
+Design Tips:
+
+Dark background with light text
+
+Icons spaced evenly, clean and minimal
