@@ -2,9 +2,21 @@ import { motion } from 'motion/react'
 export default function Button({ children, btnStyle, ...props }) {
     return (
         <motion.button
-            initial={{ filter: 'blur(20px)', opacity: 0 }}
-            animate={{ filter: 'blur(0px)', opacity: 1 }}
-            transition={{ duration: 1.2 }}
-            className={`w-100 bg-black text-white hover:bg-rose-100 duration-300  ${btnStyle} `} {...props}>{children}</motion.button>
+            whileHover="hover"
+            initial="initial"
+            className={`w-100 relative overflow-hidden border-[.5px] border-transparent hover:border-black bg-black  text-white ${btnStyle} `} {...props}>
+            <span className="relative z-10">
+                {children}
+            </span>
+            <motion.span
+                variants={{
+                    initial: { height: 0, left: "100%" },
+                    hover: { height: "100%", left: 0 },
+                }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+                className="absolute left-0 bottom-0 w-full h-full bg-rose-500 z-0"
+                style={{ originX: 1, originY: 1 }}
+            />
+        </motion.button>
     )
 }

@@ -1,5 +1,6 @@
 import SliderContainer from "./UI/Slider"
 import Button from "./UI/Button"
+import AnimateSection from "./UI/AnimateSection"
 const disigners = [
     {
         _id: 1,
@@ -15,8 +16,8 @@ const disigners = [
 
 ]
 const Designers = () => {
-    return <section className="min-h-28 flex flex-col items-center pt-4">
-        <h3 className="text-center text-[clamp(1.5rem,2vw,2.5rem)] font-bold">Our Top Designers</h3>
+    return <AnimateSection className="min-h-28 flex flex-col items-center pt-4 text-center">
+        <h3 className=" text-[clamp(1.5rem,3vw,4rem)] font-bold">Our Top Designers</h3>
         <div className="w-full max-w-xl ">
             {
                 disigners.length > 1 ? <SliderContainer>
@@ -41,7 +42,7 @@ const Designers = () => {
             }
         </div>
 
-    </section>
+    </AnimateSection>
 }
 
 export default Designers

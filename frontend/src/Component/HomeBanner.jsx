@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import Button from "./UI/Button"
+import AnimateSection from './UI/AnimateSection';
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -19,7 +20,7 @@ const childVariants = {
 const bannerText = "Discover Unique Dressesb from Independent Designers!"
 
 const HomeBanner = () => {
-    return <section className="grid grid-cols-1 py-3 min-h-[calc(70vh-4rem)] max-h-full 
+    return <AnimateSection className="grid grid-cols-1 py-3 min-h-[calc(70vh-4rem)] max-h-full 
     min-[640px]:grid-cols-2 items-center min-[640px]:h-[calc(100vh-4rem)] 
     max-[640px]:bg-[url('/img/banner-6.png')] min-[640px]:bg-[url('/img/banner-1.png')] 
     bg-cover bg-no-repeat  w-full">
@@ -48,6 +49,6 @@ const HomeBanner = () => {
                 rounded-md md:text-[clamp(.5rem,2vw,1rem)]">Become a Seller</Button>
             </div>
         </div>
-    </section>
+    </AnimateSection>
 }
 export default HomeBanner
