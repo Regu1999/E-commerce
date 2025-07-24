@@ -20,7 +20,7 @@ const childVariants = {
 const bannerText = "Discover Unique Dressesb from Independent Designers!"
 
 const HomeBanner = () => {
-    return <AnimateSection className="grid grid-cols-1 py-3 min-h-[calc(70vh-4rem)] max-h-full 
+    return <AnimateSection className="grid grid-cols-1 py-3 min-h-[15rem] min-[640px]:min-h-[30rem]  
     min-[640px]:grid-cols-2 items-center min-[640px]:h-[calc(100vh-4rem)] 
     max-[640px]:bg-[url('/img/banner-6.png')] min-[640px]:bg-[url('/img/banner-1.png')] 
     bg-cover bg-no-repeat  w-full">
