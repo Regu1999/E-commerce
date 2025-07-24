@@ -7,7 +7,7 @@ export default function Button({ children, btnStyle, ...props }) {
                 scale:.90
             }}
             initial="initial"
-            className={`w-100 relative overflow-hidden border-[.5px] border-transparent hover:border-black bg-black  text-white ${btnStyle} `} {...props}>
+            className={`w-100 relative overflow-hidden border-[.5px] border-transparent z-0 hover:border-black bg-black  text-white ${btnStyle} `} {...props}>
             <span className="relative z-10">
                 {children}
             </span>
