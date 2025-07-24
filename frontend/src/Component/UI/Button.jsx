@@ -3,6 +3,9 @@ export default function Button({ children, btnStyle, ...props }) {
     return (
         <motion.button
             whileHover="hover"
+            whileTap={{
+                scale:.90
+            }}
             initial="initial"
             className={`w-100 relative overflow-hidden border-[.5px] border-transparent hover:border-black bg-black  text-white ${btnStyle} `} {...props}>
             <span className="relative z-10">
