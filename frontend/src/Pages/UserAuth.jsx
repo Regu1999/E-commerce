@@ -1,33 +1,34 @@
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import FormBackground from "../Component/UI/FormBackground";
 import { useForm } from "react-hook-form";
 import { authendication } from '../https.js'
 import { TextFeild, EmailFeild, PasswordFeild } from "../Component/UI/Inputs";
+import { addToken } from "../store/token.js";
+import { createNotification } from "../store/notification.js";
 import Card from "../Component/UI/Card.jsx";
 export default function UserAuth() {
     const [search] = useSearchParams();
     const navigate = useNavigate()
+    const dispatch = useDispatch();
     const loginMode = search.get('mode') === 'login';
-    const { register, formState: { errors, isSubmitting }, handleSubmit, watch, setError, reset } = useForm();
-    // console.log(isSubmitting);
+    const { register, formState: { errors, isSubmitting }, handleSubmit, watch, reset } = useForm();
     const handleFromSubmit = async (data) => {
         delete data.newPwd;
         try {
             const response = await authendication(search.get('mode'), data);
+            dispatch(createNotification({ message: "Welcome " + response.userName + " !", status: 'success' }));
+
+            dispatch(addToken(response.token))
             navigate('/shop')
         } catch (error) {
-            setError('root', {
-                type: 'manual',
-                message: !loginMode ? error.response.data.errors?.email || 'Unable to Process data' :
-                    error.response.data.errors?.credentials || error.response.data.message
-            })
-            console.log(error);
+            dispatch(createNotification({ message: error.message, status: 'error', info: error.info }));
         }
     }
     let newPwd = watch("newPwd")
     return <FormBackground>
         <Card>
-            {errors.root && <div className="bg-red-500 p-5 w-full text-white my-4">{errors.root.message}</div>}
             <h1 className="text-2xl mb-6 font-bold">{loginMode ? "Login" : "Sign Up"}</h1>
             <form action="post" onSubmit={handleSubmit(handleFromSubmit)}>
                 {!loginMode && <TextFeild inputId="UserName" lableName="User Name" placeholder="Name" register={register} errors={errors} />}
@@ -39,7 +40,7 @@ export default function UserAuth() {
                         {...register("newPwd", {
                             required: 'new password is required for create account',
                             minLength: {
-                                value: 8,
+                                value: 6,
                                 message: 'minimum 8 cheracter required'
                             }
                         })}

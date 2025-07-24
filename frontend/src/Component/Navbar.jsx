@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import CartIcon from "./UI/CartIcon";
 import SideNavBar from "./SideNavBar";
 import FlexContainer from "./UI/FlexContainer";
@@ -7,8 +7,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import { SlMenu } from "react-icons/sl";
 import { NavLink } from "react-router-dom";
 import { useMediaQueryDevice } from '../hooks/useMediaQuryDevice'
-import { handleHeight } from '../store/calculateExptySpace';
-import UserProfile from "./UI/UserFrofile";
+import UserProfile from "./UI/UserProfile";
 
 const LikeButton = ({ styleClass, hoverEffect }) => {
     return <NavLink to={'likedProduct'} className={`${styleClass} ${hoverEffect} `}><FaRegHeart className="text-xl" /></NavLink>
@@ -18,7 +17,6 @@ export default function NavBar({ }) {
     const [isView, setIsEnabled] = useState(false);
     
     const { isTablet } = useMediaQueryDevice();
-    const { setEmptyHeight } = handleHeight();
     const navContainer = useRef()
     const hoverEffect = "rounded-full p-2 hover:bg-gray-200 transition duration-500 hover:shadow-sm "
    
@@ -27,23 +25,6 @@ export default function NavBar({ }) {
         setIsEnabled(!isView)
     }
 
-    useEffect(() => {
-        const updateHeight = () => {
-            const windowHeight = window.innerHeight;
-            const contentHeight = navContainer.current ? navContainer.current.scrollHeight : 0;
-            const emptySpace = Math.max(windowHeight - contentHeight, 0);
-            setEmptyHeight(emptySpace);
-        };
-
-        updateHeight();
-
-        window.addEventListener('resize', updateHeight);
-
-        return () => {
-            window.removeEventListener('resize', updateHeight);
-        };
-
-    }, [])
     const NavegationLink = ({ children, to, styleClass }) => {
         return <NavLink to={to} className={`${isTablet && hoverEffect} ${!isTablet && 'text-white p-2 '}${styleClass}`}>{children}</NavLink>
     }
@@ -53,8 +34,6 @@ export default function NavBar({ }) {
             <NavegationLink to='contact'>Contact</NavegationLink>
         </FlexContainer>
     )
-
-
 
     return <nav ref={navContainer} className="h-16 shadow-md flex justify-center sticky top-0 bg-white z-10">
         <FlexContainer styleClass='w-full justify-between px-5 h-full max-w-screen-lg'>
@@ -71,9 +50,6 @@ export default function NavBar({ }) {
                 {isTablet && <LikeButton hoverEffect={hoverEffect} />}
                 {isTablet && <CartIcon styleClass={hoverEffect} />}
                 {isTablet && <UserProfile NavegationLink={NavegationLink} />}
-                {/* <NavegationLink to='auth?mode=login' styleClass=''>
-                    <CgProfile className="text-2xl text-black" />
-                </NavegationLink> */}
             </FlexContainer>
         </FlexContainer>
 

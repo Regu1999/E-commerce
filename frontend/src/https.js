@@ -1,44 +1,73 @@
 import axios from "axios";
-import { getToken } from "./utlity/handleToken";
-import { setToken } from "./utlity/handleToken";
 import { QueryClient } from "@tanstack/react-query";
-export const queryClient = new QueryClient()
+
+export const queryClient = new QueryClient();
+
+const API_URL = import.meta.env.VITE_API_URL
+
 const api = axios.create({
-    baseURL: 'http://localhost:3000/'
+    baseURL: API_URL
 })
 
 export async function authendication(mode, formData) {
     try {
         const { data } = await api.post(mode, formData, {
             headers: {
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true
         })
-        setToken(data.token)
         return data
     } catch (error) {
-        throw error
+        const err = new Error(error?.response?.data?.message || error.message || "Network Error");
+        err.info = error?.response?.data?.info || null;
+        
+        throw err
     }
 }
 
-export async function autoLogin({ signal }) {
-    const { token } = getToken();
-    if (token) {
-        try {
-            const { data } = await api.get('/userAutoLogin', {
-                'headers': {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
-                }, signal
-            });
-            return data
-        } catch (err) {
-            console.log(err.response);
-            const error = new Error('authorization faild');
-            error.code = err.response.status;
-            error.message = err.response.statusText
-            throw new Error(error);
-        }
+export async function autoLogin() {
+    try {
+
+        const { data } = await api.get('/autoLogin', {
+            withCredentials: true
+        });
+        return data
+    } catch (error) {
+        const err = new Error(error?.response?.data?.message || error.message || "Network Error");
+        throw err
+    }
+}
+
+export async function logout(token) {
+    try {
+        const { data } = await api.post('/logout', null, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            withCredentials: true
+        })
+        return data
+    } catch (error) {
+        const err = new Error(error?.response?.data?.message || error.message || "Network Error");
+        throw err
+    }
+
+}
+
+export async function getProfile(token) {
+    console.log(token);
+
+    try {
+        const { data } = await api.get('/profile', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return data
+    } catch (error) {
+        const err = new Error(error?.response?.data?.message || error.message || "Network Error");
+        throw err
     }
 }
 
@@ -51,6 +80,7 @@ export async function getProduct({ queryString }) {
         const { data } = await api.get(url);
         return data.products;
     } catch (error) {
-        console.log(error);
+        const err = new Error(error?.response?.data?.message || err.message || "Network Error");
+        throw err
     }
 }

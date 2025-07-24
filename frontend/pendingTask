@@ -3,5 +3,6 @@ Shop page
 2. In the mobile screen size open sidebar and increase screen size that time logo didn't show.
 3. React router dom deprecated so need to update to react router.
 4. React slicker library two side arow mark overflow navbar and footer.
+(fixed . home page banner vh needs to be change )
  
  

@@ -1,12 +1,11 @@
-import { QueryClientProvider } from "@tanstack/react-query";
 import Root from "./Pages/Root.jsx";
 import Error from "./Component/UI/Error.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { lazy, Suspense } from "react";
-import { queryClient } from "./https.js";
-import store from './store/index.js';
-import { Provider } from "react-redux";
+import { lazy, Suspense, useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import LoadingCard from "./Component/UI/LoadingCard.jsx";
+import { autoLoginAction } from "./store/token.js";
 const Home = lazy(() => import('./Pages/Home.jsx'));
 const Cart = lazy(() => import('./Component/cart/Cart.jsx'));
 const ContactUs = lazy(() => import('./Pages/ContactUs.jsx'));
@@ -53,20 +52,15 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <SuspenseContainer><Profile /></SuspenseContainer>,
-        loader: () => import('./Pages/Profile.jsx').then(module => module.loader())
-      },
-      {
-        path: 'logout',
-        loader: () => import('./Pages/Logout.jsx').then(module => module.logoutFn())
       }
     ]
   }
 ])
 export default function App() {
-  return <QueryClientProvider client={queryClient}>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-  </QueryClientProvider>
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(autoLoginAction())
+  }, [])
+  return <RouterProvider router={router} />
 
 }
