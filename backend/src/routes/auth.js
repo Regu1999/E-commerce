@@ -1,8 +1,8 @@
 import express from 'express'
 import { body } from 'express-validator'
 
-import { autoLogin, login, signUp } from "../controler/auth.js"
-import { checkAuth } from '../util/auth.js';
+import { autoLogin, login, signUp, getProfile, logout } from "../controler/auth.js"
+import { checkAuth, checkRefreshTokenMiddleware } from '../util/auth.js';
 import Users from '../model/Users.js';
 
 const router = express.Router();
@@ -20,6 +20,10 @@ router.post('/signup', [body('UserName').trim().notEmpty(), validateEmail().cust
 router.post('/login', [validateEmail(), validatePassword()], login);
 
 
-router.get('/userAutoLogin',checkAuth, autoLogin)
+router.get('/autoLogin', checkRefreshTokenMiddleware, autoLogin)
+
+router.get('/profile', checkAuth, getProfile);
+
+router.post('/logout', checkRefreshTokenMiddleware, logout)
 
 export default router;

@@ -1,77 +1,124 @@
-import { createJSONToken, isValidPassword } from '../util/auth.js';
-import Users from '../model/Users.js';
+import { validationResult } from "express-validator"
 import bcryptjs from 'bcryptjs';
 
-const { hash } = bcryptjs;
+import { createJSONToken, isValidPassword } from '../util/auth.js';
+import Users from '../model/Users.js';
 
-import { validationResult } from "express-validator"
+const { hash } = bcryptjs;
 
 export const signUp = async (req, res, next) => {
   const errorResult = validationResult(req)
   const { UserName, email, password } = req.body;
 
-  if (!errorResult.isEmpty()) {
-    console.log(errorResult.array());
-    return res.status(422).json({
-
-      message: 'User signup failed due to validation errors.',
-      errors: errorResult.array(),
-    });
-  }
   try {
-    const generatedPwd =await hash(password, 12)
+    if (!errorResult.isEmpty()) {
+      console.log(errorResult.array());
+      const error = new Error("User signup failed due to validation errors.");
+      error.status = 422;
+      error.info = errorResult.array();
+      throw error
+    }
+    const generatedPwd = await hash(password, 12)
     const createdUser = await Users({ UserName, email, password: generatedPwd });
     await createdUser.save();
-    const getUser = await Users.findOne({ email: email }).select({ email: 1, UserName: 1 })
-    const authToken = createJSONToken(getUser);
-    res
-      .status(201)
-      .json({ message: 'User created.', user: getUser, token: authToken });
+    const getUser = await Users.findOne({ email: email }).select({ UserName: 1 })
+    const refreshToken = createJSONToken({ _id: getUser._id });
+    const token = createJSONToken(getUser);
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      sameSite: 'Lax',
+      // secure: true
+    })
+    res.status(201).json({ message: 'User created.', token, userName: getUser.UserName });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
 
-export const login = async (req, res) => {
+export const login = async (req, res, next) => {
+  const errorResult = validationResult(req);
   const { email, password } = req.body;
-  console.log(req.body);
-
   let user;
   try {
+    if (!errorResult.isEmpty()) {
+      const error = new Error("User Login failed due to validation errors.");
+      error.status = 422;
+      error.info = errorResult.array();
+      throw error
+    }
+
     user = await Users.findOne({ email });
     if (!user) {
-      throw new Error("User Not Found")
+      const error = new Error("Invalid email or password");
+      error.status = 404;
+      throw error
     }
+    const pwIsValid = await isValidPassword(password, user.password);
+    if (!pwIsValid) {
+      const error = new Error("Invalid email or password");
+      error.status = 422;
+      throw error;
+    }
+
+    const refreshToken = createJSONToken({ _id: user._id });
+    const token = createJSONToken({ _id: user._id, UserName: user.UserName });
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      sameSite: 'Lax'
+      // secure: true
+    })
+    res.status(200).json({ token, userName: user.UserName });
   } catch (error) {
-    return res.status(401).json({ message: 'Authentication failed.' });
+    next(error)
   }
 
-  const pwIsValid = await isValidPassword(password, user.password);
-  if (!pwIsValid) {
-    return res.status(422).json({
-      message: 'Invalid credentials.',
-      errors: { credentials: 'Invalid email or password entered.' },
-    });
-  }
-
-  const token = createJSONToken({ email: user.email, UserName: user.UserName });
-  res.status(200).json({ token });
 };
 
-export const autoLogin = async (req, res) => {
-  const token = await req.token;
-  let email = token.email
-  let user;
-  try {
-    user = await Users.findOne({ email });
-    if (!user) {
-      throw new Error("User Not Found")
-    }
-  } catch (error) {
-    return res.status(401).json({ message: 'Token expired' });
-  }
+export const autoLogin = async (req, res, next) => {
+  const user = req?.user;
 
-  res.status(200).json({ email: user.email, UserName: user.UserName })
+  try {
+    if (!user) {
+      return res.json({ token: false });
+    }
+    const token = createJSONToken({ _id: user._id, UserName: user.UserName });
+
+    res.status(200).json({ token })
+  } catch (error) {
+    const err = new Error("No Token Found");
+    err.status = 401
+    next(err);
+  }
 }
 
+export const getProfile = async (req, res, next) => {
+  const user = req.user;
+  try {
+    if (!user) {
+      const error = new Error("Not authondicated Please Login!");
+      error.statusCode = 401;
+      throw error;
+    }
+    res.status(200).json(user)
+
+  } catch (error) {
+    next(error)
+  }
+
+}
+
+export const logout = async (req, res, next) => {
+  try {
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      sameSite: 'Lax',
+      path: '/'
+    })
+    res.status(200).json({ message: "You have successfully logged out" })
+  } catch (error) {
+    console.log(error);
+    next(error)
+  }
+}

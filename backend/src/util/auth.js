@@ -1,11 +1,12 @@
 import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
-import { NotAuthError } from './errors.js';
-const { sign, verify } =jwt
+import { NotAuthError,NotFoundError } from './errors.js';
+const { sign, verify } = jwt
 const KEY = 'supersecret';
-const { compare } =bcryptjs
-export function createJSONToken(email) {
-  return sign({ email }, KEY, { expiresIn: '1h' });
+const { compare } = bcryptjs;
+import Users from '../model/Users.js';
+export function createJSONToken(user) {
+  return sign(user, KEY, { expiresIn: '7d' });
 }
 
 export function validateJSONToken(token) {
@@ -16,7 +17,7 @@ export function isValidPassword(password, storedPassword) {
   return compare(password, storedPassword);
 }
 
-function checkAuthMiddleware(req, res, next) {
+async function checkAuthMiddleware(req, res, next) {
   if (req.method === 'OPTIONS') {
     return next();
   }
@@ -33,7 +34,11 @@ function checkAuthMiddleware(req, res, next) {
   const authToken = authFragments[1];
   try {
     const validatedToken = validateJSONToken(authToken);
-    req.token = validatedToken;
+    const user = await Users.findById(validatedToken._id).select({ password: 0 })
+    if (!user) {
+      throw new Error("User Not Found")
+    }
+    req.user = user;
   } catch (error) {
     console.log('NOT AUTH. TOKEN INVALID.');
     return next(new NotAuthError('Not authenticated.'));
@@ -42,3 +47,25 @@ function checkAuthMiddleware(req, res, next) {
 }
 
 export const checkAuth = checkAuthMiddleware;
+
+export async function checkRefreshTokenMiddleware(req, res, next) {
+
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) {
+    return next()
+  }
+  try {
+    const validatedToken = validateJSONToken(refreshToken);
+    const user = await Users.findById(validatedToken._id).select({ password: 0 });
+    if (!user) {
+      return next(new NotFoundError('User Not Found'));
+    }
+    req.user = user;
+
+  } catch (error) {
+    console.log('NOT AUTH. TOKEN INVALID.');
+    return next(new NotAuthError('Not authenticated.'));
+  }
+
+  next()
+}
