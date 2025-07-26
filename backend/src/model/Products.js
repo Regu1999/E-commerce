@@ -41,8 +41,6 @@ const productSchema = new Schema({
     }
 });
 productSchema.statics.findByQuery = async function (filter){
-    console.log(filter);
-    
     const query = {};
     if (filter.price.length > 0) {
         const priceCondition = filter.price.map(range => ({

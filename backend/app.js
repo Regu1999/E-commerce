@@ -26,7 +26,7 @@ app.use(authRout);
 
 app.use((req, res, next) => {
   if (req.method === 'OPTIONS') {
-    return next();
+    return res.sendStatus(200);
   }
   // console.log("working");
   
@@ -45,6 +45,6 @@ app.use((err, req, res, next) => {
 // 404
 
 connectDb().catch(() => {
-  console.log("unable to connect db");
+  throw new Error("unable to connect db")
 })
 app.listen(process.env.PORT || 3000);
