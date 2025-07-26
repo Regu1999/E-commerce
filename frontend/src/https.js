@@ -21,7 +21,7 @@ export async function authendication(mode, formData) {
     } catch (error) {
         const err = new Error(error?.response?.data?.message || error.message || "Network Error");
         err.info = error?.response?.data?.info || null;
-        
+
         throw err
     }
 }
@@ -56,7 +56,6 @@ export async function logout(token) {
 }
 
 export async function getProfile(token) {
-    console.log(token);
 
     try {
         const { data } = await api.get('/profile', {
@@ -81,6 +80,38 @@ export async function getProduct({ queryString }) {
         return data.products;
     } catch (error) {
         const err = new Error(error?.response?.data?.message || err.message || "Network Error");
+        throw err
+    }
+}
+
+export async function sendCart(value, token) {
+    try {
+        const { data } = await api.post('/cart', value, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        return data
+    } catch (error) {
+        const err = new Error(error?.response?.data?.message || error.message || "Network Error");
+        err.info = error?.response?.data?.info || null;
+        console.log(err);
+        throw err
+    }
+}
+
+export async function getCartTotel(token) {
+    try {
+        const { data } = await api.get('/cartTotal', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        console.log(data);
+        
+        return data;
+    } catch (error) {
+        const err = new Error(error?.response?.data?.message || error.message || "Network Error");
         throw err
     }
 }

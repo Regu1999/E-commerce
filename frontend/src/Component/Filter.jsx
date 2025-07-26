@@ -39,14 +39,15 @@ export default function Filter() {
         }
     }, [])
     useEffect(() => {
+        
         if (isFetching) {
             const queryPatams = objectToQueryStringConverter(checkedData);
             if (queryPatams) {
                 navigate('?' + queryPatams)
-                fetcher.load('?' + queryPatams)
-
+                // fetcher.load('?' + queryPatams)
+                
             } else {
-                navigate('')
+                navigate('/shop')
             }
         }
     }, [checkedData])

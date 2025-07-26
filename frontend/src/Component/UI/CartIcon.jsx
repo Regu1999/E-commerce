@@ -1,11 +1,37 @@
+import { useQuery } from "@tanstack/react-query";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { NavLink } from "react-router-dom";
-export default function CartIcon({ styleClass, showPrice=true }) {
+import { useSelector } from "react-redux";
+
+import { getCartTotel } from '../../https.js'
+import useNotification from "../../hooks/useNotification.js";
+import { useEffect } from "react";
+export default function CartIcon({ styleClass, showPrice = true }) {
+    const token = useSelector(state => state.token)
+    const notification = useNotification();
+
+    const { data, error, isError } = useQuery({
+        queryKey: ['cartTotal'],
+        queryFn: () => getCartTotel(token),
+        enabled: token != null,
+        refetchOnWindowFocus: false
+    })
+
+    useEffect(() => {
+        if (isError) {
+            notification({ message: error.message, status: 'error' })
+        }
+    }, [error, isError])
+
+
     return <NavLink to="/shoppingCart" className={`flex items-center justify-center gap-1 ${styleClass}`}>
         <div className="relative ">
             <MdOutlineShoppingBag className="text-2xl" />
-            <span className="text-white text-center bg-rose-100 h-4 w-4 rounded-full absolute top-[-5px] left-[13px] text-[10px]">0</span>
+            {data && <span className="text-white text-center bg-rose-100 h-4 w-4 rounded-full absolute 
+            top-[-5px] left-[13px] text-[10px]">
+                {data.totalQty}
+            </span>}
         </div>
-        {showPrice && <div>$0.00</div>}
+        {showPrice && <div>{data && data.currencyFormat}{data ? data.totalAmount.toFixed(2) : 0.00}</div>}
     </NavLink>
 }

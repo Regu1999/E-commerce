@@ -1,29 +1,29 @@
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 
 import FormBackground from "../Component/UI/FormBackground";
-import { useForm } from "react-hook-form";
 import { authendication } from '../https.js'
 import { TextFeild, EmailFeild, PasswordFeild } from "../Component/UI/Inputs";
 import { addToken } from "../store/token.js";
-import { createNotification } from "../store/notification.js";
 import Card from "../Component/UI/Card.jsx";
+import useNotification from "../hooks/useNotification.js";
 export default function UserAuth() {
     const [search] = useSearchParams();
     const navigate = useNavigate()
     const dispatch = useDispatch();
+    const notification = useNotification()
     const loginMode = search.get('mode') === 'login';
     const { register, formState: { errors, isSubmitting }, handleSubmit, watch, reset } = useForm();
     const handleFromSubmit = async (data) => {
         delete data.newPwd;
         try {
             const response = await authendication(search.get('mode'), data);
-            dispatch(createNotification({ message: "Welcome " + response.userName + " !", status: 'success' }));
-
+            notification({ message: "Welcome " + response.userName + " !", status: 'success' })
             dispatch(addToken(response.token))
             navigate('/shop')
         } catch (error) {
-            dispatch(createNotification({ message: error.message, status: 'error', info: error.info }));
+            notification({ message: error.message, status: 'error', info: error.info })
         }
     }
     let newPwd = watch("newPwd")

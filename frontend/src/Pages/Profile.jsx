@@ -9,33 +9,43 @@ import Card from "../Component/UI/Card";
 import { useMediaQueryDevice } from "../hooks/useMediaQuryDevice";
 import { getProfile, queryClient, logout } from "../https";
 import { emptyToken } from "../store/token";
-import { createNotification } from "../store/notification";
 import Loader from "../Component/UI/Loader";
+import useNotification from "../hooks/useNotification";
+import { useEffect } from "react";
 
 export default function Profile() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { isLargeMobile } = useMediaQueryDevice();
-    const token = useSelector(state => state.token)
+    const token = useSelector(state => state.token);
+    const notification = useNotification();
     const { data: user, isLoading, isError } = useQuery({
         queryKey: ['userData'],
         queryFn: () => getProfile(token),
+        refetchOnWindowFocus:false
     });
-    if (isError) {
-        navigate('/auth?mode=login')
-    }
+    
+    useEffect(() => {
+        if (isError) {
+            navigate('/auth?mode=login')
+        }
+    }, [isError, navigate])
 
-    const { mutate } = useMutation({
+    const { mutate, isError: isMutateError, error: mutateError } = useMutation({
         mutationFn: () => logout(token),
         onSuccess: (data) => {
-            console.log(data);
-
             queryClient.invalidateQueries({ queryKey: ['userData'] })
-            dispatch(createNotification({ message: data.message+"!", status: "success" }))
+            notification({ message: data.message + "!", status: "success" })
             dispatch(emptyToken())
             navigate('/')
         }
     })
+    useEffect(() => {
+        if (isMutateError) {
+            notification({ message: mutateError.message + "!", status: "error" });
+        }
+    }, [isMutateError, mutateError]);
+
     function handleClose() {
         navigate('..')
     }
