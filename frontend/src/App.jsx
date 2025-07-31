@@ -59,7 +59,7 @@ const router = createBrowserRouter([
 export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(autoLoginAction())
+    // dispatch(autoLoginAction())
   }, [])
   return <RouterProvider router={router} />
 
