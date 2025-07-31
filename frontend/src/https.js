@@ -110,9 +110,6 @@ export async function getCartTotel(token) {
                 'Authorization': `Bearer ${token}`
             }
         });
-        console.log(data);
-        
-        
         return data;
     } catch (error) {
         console.log(error);
