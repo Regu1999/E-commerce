@@ -102,8 +102,6 @@ export async function sendCart(value, token) {
 }
 
 export async function getCartTotel(token) {
-    console.log("working");
-    
     try {
         const { data } = await api.get('/cartTotal', {
             headers: {
