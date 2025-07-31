@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { autoLogin, dummy } from "../https";
+import { autoLogin } from "../https";
 import { createNotification } from "./notification"
 const tokenSlice = createSlice({
     name: 'token',
@@ -19,9 +19,8 @@ export const { addToken, emptyToken } = tokenSlice.actions
 export const autoLoginAction = () => {
     return async dispatch => {
         try {
-            dummy()
-            // const data = await autoLogin();
-            // dispatch(addToken(data?.token || null))
+            const data = await autoLogin();
+            dispatch(addToken(data?.token || null))
         } catch (error) {
             dispatch(createNotification({ status: "error", message: error.message || "Please login" }))
         }

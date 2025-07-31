@@ -4,10 +4,10 @@ import cookieParser from 'cookie-parser';
 import cors from "cors"
 import 'dotenv/config'
 
-import productRoute from '../src/routes/products.js'
-import authRout from '../src/routes/auth.js'
-import connectDb from '../src/config/db.js';
-import { NotFoundError } from '../src/util/errors.js';
+import productRoute from './src/routes/products.js'
+import authRout from './src/routes/auth.js'
+import connectDb from './src/config/db.js';
+import { NotFoundError } from './src/util/errors.js';
 const app = express();
 
 app.use(express.static('images'));
@@ -19,9 +19,7 @@ app.use(cors({
   origin: CROS_ORIGIN_URL,
   credentials: true
 }))
-app.use('/', (req,res)=>{
-  res.json({messag:"working"})
-})
+
 app.use(productRoute)
 app.use(authRout);
 

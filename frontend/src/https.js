@@ -28,7 +28,7 @@ export async function authendication(mode, formData) {
 
 export async function autoLogin() {
     console.log(api.defaults.baseURL);
-
+    
     try {
 
         const { data } = await api.get('/autoLogin', {
@@ -97,7 +97,6 @@ export async function sendCart(value, token) {
     } catch (error) {
         const err = new Error(error?.response?.data?.message || error.message || "Network Error");
         err.info = error?.response?.data?.info || null;
-        console.log(err);
         throw err
     }
 }
@@ -109,28 +108,10 @@ export async function getCartTotel(token) {
                 'Authorization': `Bearer ${token}`
             }
         });
-        console.log(data);
-
+        
         return data;
     } catch (error) {
         const err = new Error(error?.response?.data?.message || error.message || "Network Error");
         throw err
-    }
-}
-
-export async function dummy() {
-    try {
-
-        const { data } = await api.get('/', {
-            withCredentials: true
-        });
-        console.log(data);
-
-        // return data
-    } catch (error) {
-        console.log(error);
-        console.log(error.message);
-
-
     }
 }
