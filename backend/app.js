@@ -12,8 +12,9 @@ const app = express();
 app.use(express.static('images'));
 app.use(bodyParser.json());
 app.use(cookieParser())
+const CROS_URL = process.env.CROS_URL
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.setHeader('Access-Control-Allow-Origin', CROS_URL);
   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -29,7 +30,7 @@ app.use((req, res, next) => {
     return res.sendStatus(200);
   }
   // console.log("working");
-  
+
   const error = new NotFoundError('404 - Not Found')
   res.status(error.status).json({ message: error.message });
 });
