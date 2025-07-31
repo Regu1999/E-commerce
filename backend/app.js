@@ -19,9 +19,7 @@ app.use(cors({
   origin: CROS_ORIGIN_URL,
   credentials: true
 }))
-app.use((req,res)=>{
-  res.json({messf:"working"})
-})
+
 app.use(productRoute)
 app.use(authRout);
 
