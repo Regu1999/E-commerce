@@ -13,7 +13,7 @@ const app = express();
 app.use(express.static('images'));
 app.use(bodyParser.json());
 app.use(cookieParser())
-const CROS_ORIGIN_URL = process.env.CROS_ORIGIN_URL;
+const CROS_ORIGIN_URL = process.env.CROS_ORIGIN_URL || "https://e-commerce-3u3s.vercel.app";
 
 app.use(cors({
   origin: CROS_ORIGIN_URL,
