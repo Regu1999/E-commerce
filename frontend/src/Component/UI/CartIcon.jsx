@@ -16,7 +16,6 @@ export default function CartIcon({ styleClass, showPrice = true }) {
         enabled: token != null,
         refetchOnWindowFocus: false
     })
-    console.log(data);
 
     useEffect(() => {
         if (isError) {

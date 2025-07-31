@@ -102,15 +102,21 @@ export async function sendCart(value, token) {
 }
 
 export async function getCartTotel(token) {
+    console.log("working");
+    
     try {
         const { data } = await api.get('/cartTotal', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
+        console.log(data);
+        
         
         return data;
     } catch (error) {
+        console.log(error);
+        
         const err = new Error(error?.response?.data?.message || error.message || "Network Error");
         throw err
     }
