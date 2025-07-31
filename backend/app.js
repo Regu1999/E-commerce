@@ -1,6 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import cors from "cors"
 import 'dotenv/config'
 
 import productRoute from './src/routes/products.js'
@@ -12,15 +13,12 @@ const app = express();
 app.use(express.static('images'));
 app.use(bodyParser.json());
 app.use(cookieParser())
-const CROS_ORIGIN_URL = process.env.CROS_ORIGIN_URL
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', CROS_ORIGIN_URL);
-  res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  next();
-});
+const CROS_ORIGIN_URL = process.env.CROS_ORIGIN_URL;
 
+app.use(cors({
+  origin: CROS_ORIGIN_URL,
+  credentials: true
+}))
 
 app.use(productRoute)
 app.use(authRout);
