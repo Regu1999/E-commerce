@@ -28,7 +28,7 @@ export const signUp = async (req, res, next) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
       sameSite: 'Lax',
-      // secure: true
+      secure: true
     })
     res.status(201).json({ message: 'User created.', token, userName: getUser.UserName });
   } catch (error) {
@@ -66,8 +66,8 @@ export const login = async (req, res, next) => {
     res.cookie('refreshToken', refreshToken, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
-      sameSite: 'Lax'
-      // secure: true
+      sameSite: 'Lax',
+      secure: true
     })
     res.status(200).json({ token, userName: user.UserName });
   } catch (error) {
