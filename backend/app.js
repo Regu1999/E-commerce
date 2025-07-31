@@ -12,9 +12,9 @@ const app = express();
 app.use(express.static('images'));
 app.use(bodyParser.json());
 app.use(cookieParser())
-const CROS_URL = process.env.CROS_URL
+const CROS_ORIGIN_URL = process.env.CROS_ORIGIN_URL
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', CROS_URL);
+  res.setHeader('Access-Control-Allow-Origin', CROS_ORIGIN_URL);
   res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
