@@ -27,8 +27,6 @@ export async function authendication(mode, formData) {
 }
 
 export async function autoLogin() {
-    console.log(api.defaults.baseURL);
-
     try {
 
         const { data } = await api.get('/autoLogin', {
@@ -110,27 +108,10 @@ export async function getCartTotel(token) {
             }
         });
         console.log(data);
-
+        
         return data;
     } catch (error) {
         const err = new Error(error?.response?.data?.message || error.message || "Network Error");
         throw err
-    }
-}
-
-export async function dummy() {
-    try {
-
-        const { data } = await api.get('/', {
-            withCredentials: true
-        });
-        console.log(data);
-
-        // return data
-    } catch (error) {
-        console.log(error);
-        console.log(error.message);
-
-
     }
 }
