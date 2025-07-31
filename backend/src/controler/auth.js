@@ -27,7 +27,7 @@ export const signUp = async (req, res, next) => {
     res.cookie('refreshToken', refreshToken, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
-      sameSite: 'Lax',
+      sameSite: "None",
       secure: true
     })
     res.status(201).json({ message: 'User created.', token, userName: getUser.UserName });
@@ -66,7 +66,7 @@ export const login = async (req, res, next) => {
     res.cookie('refreshToken', refreshToken, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
-      sameSite: 'Lax',
+      sameSite: "None",
       secure: true
     })
     res.status(200).json({ token, userName: user.UserName });
@@ -113,7 +113,8 @@ export const logout = async (req, res, next) => {
   try {
     res.clearCookie("refreshToken", {
       httpOnly: true,
-      sameSite: 'Lax',
+      sameSite: "None",
+      secure:true,
       path: '/'
     })
     res.status(200).json({ message: "You have successfully logged out" })
