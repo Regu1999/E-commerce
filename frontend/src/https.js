@@ -27,6 +27,8 @@ export async function authendication(mode, formData) {
 }
 
 export async function autoLogin() {
+    console.log(api);
+    
     try {
 
         const { data } = await api.get('/autoLogin', {
