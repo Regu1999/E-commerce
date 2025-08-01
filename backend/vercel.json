@@ -11,11 +11,5 @@
               "source": "/(.*)",
               "destination": "/api/app.js"
             }
-          ],
-          "routes": [
-            {
-              "src": "/images/(.*)",
-              "dest": "/images/$1"
-            }
           ]
         }
