@@ -11,5 +11,15 @@
               "source": "/(.*)",
               "destination": "/api/app.js"
             }
+          ],
+          "routes": [
+            {
+              "src": "/images/(.*)",
+              "dest": "/public/images/$1"
+            },
+            {
+              "src": "/(.*)",
+              "dest": "/api/app.js"
+            }
           ]
         }
