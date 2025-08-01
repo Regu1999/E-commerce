@@ -3,6 +3,8 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from "cors";
 import 'dotenv/config';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 import productRoute from '../src/routes/products.js'
 import authRout from '../src/routes/auth.js'
@@ -19,6 +21,11 @@ app.use(cors({
   origin: CROS_ORIGIN_URL,
   credentials: true
 }))
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 app.use(productRoute)
 app.use(authRout);
