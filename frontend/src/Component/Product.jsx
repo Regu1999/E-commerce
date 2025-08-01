@@ -44,7 +44,7 @@ export default function Product({ product }) {
     }
     return (
         <>
-            <div className={`${!isImageLoaded ? "hidden" : ''}`}>
+            <div className={`${!true ? "hidden" : ''}`}>
                 <div className="relative max-h-[70%] overflow-hidden" onMouseEnter={() => setHoverStatus(true)} onMouseLeave={() => setHoverStatus(false)}>
                     {isFreeShipping && <small className="bg-black top-0 text-white px-2 py-1 align-middle text-center absolute right-0 text-[50%] md:text-[60%]">Free shipping</small>}
                     <img src={`${API_URL}/images/${sku}-${!hoverStatus ? "1" : "2"}-product.webp`} alt="mens dress" onLoad={checkisLoaded} />
