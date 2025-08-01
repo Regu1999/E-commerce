@@ -1,8 +1,8 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import cors from "cors"
-import 'dotenv/config'
+import cors from "cors";
+import 'dotenv/config';
 
 import productRoute from '../src/routes/products.js'
 import authRout from '../src/routes/auth.js'
@@ -10,7 +10,7 @@ import connectDb from '../src/config/db.js';
 import { NotFoundError } from '../src/util/errors.js';
 const app = express();
 
-app.use(express.static('images'));
+app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(cookieParser())
 const CROS_ORIGIN_URL = process.env.CROS_ORIGIN_URL;
