@@ -47,7 +47,7 @@ export default function Product({ product }) {
             <div className={`${!isImageLoaded ? "hidden" : ''}`}>
                 <div className="relative max-h-[70%] overflow-hidden" onMouseEnter={() => setHoverStatus(true)} onMouseLeave={() => setHoverStatus(false)}>
                     {isFreeShipping && <small className="bg-black top-0 text-white px-2 py-1 align-middle text-center absolute right-0 text-[50%] md:text-[60%]">Free shipping</small>}
-                    <img src={`${API_URL}images/${sku}-${!hoverStatus ? "1" : "2"}-product.webp`} alt="mens dress" onLoad={checkisLoaded} />
+                    <img src={`${API_URL}/images/${sku}-${!hoverStatus ? "1" : "2"}-product.webp`} alt="mens dress" onLoad={checkisLoaded} />
                 </div>
                 <div className="min-h-16 text-center flex justify-center items-center flex-wrap  text-sm/6 md:text-[100%]">
                     {title}
